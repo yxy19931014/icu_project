@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+@import "var";
+
+@import "mixin";
+
+@import "normalize";
+
+@import "adpater";
+
+.obervationBox{
+    #popover.mui-active {
+    width: 750/100rem;
+    transform: translate(5px) translateY(13px);
+    border-radius: 0;
+    background: #fff;
+    padding-left: 20/100rem;
+    padding: 0 20/100rem 0 30/100rem;
+    .currentPatient,.history {
+        font-size: 28/100rem;
+        color:#373737;
+        font-weight: 400;
+        line-height: 36/100rem;
+    }
+    .historyData,.currentData {
+        display: flex;
+        flex-wrap: wrap;
+        width:100%;
+        .singleBox {
+            width: 33.33%;
+            height: 70/100rem;
+            margin-bottom: 20/100rem;
+            .single {
+                width: 95%;
+                height: 100%;
+                background: #eee;
+                border-radius: 3px;
+                display: inline-block;
+                span {
+                    line-height: 70/100rem;
+                }
+            }
+        }
+    }
+    .currentData .single {
+        span {
+            color:@MainColor;
+        }
+    }
+    .historyData .single {
+        span {
+            color:#333;
+        }
+    }
+    .mui-popover-arrow {
+        display: none;
+    }
+}
+
+}
+.mui-backdrop {
+    top:100/100rem;
+}

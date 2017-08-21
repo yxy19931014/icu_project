@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+@import "var";
+
+@import "mixin";
+
+@import "normalize";
+
+@import "adpater";
+
+/*样式处理*/
+body,form,input, button,fieldset {  
+  margin:0;  
+  padding:0;  
+  border:none;
+}  
+body{
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;;
+}
+*,::before,::after,input[type="search"]{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ul{
+  list-style: none;
+}
+.clearfix::after,
+.clearfix::before{
+  content: "";
+  display: block;
+  visibility: hidden;
+  height: 0;
+  line-height: 0;
+  clear: both;
+}
+/*主体容器*/
+.loginBox{
+  max-width: 750px;
+  min-width: 320px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  .top {
+      width: 100%;
+      height: 390/100rem;
+      background: url(../imgs/login/topBj.png) no-repeat center / 750/100rem 390/100rem;
+      position:relative;
+      .logo {
+          width: 160/100rem;
+          height: 160/100rem;
+          position:absolute;
+          left: 295/100rem;
+          top:146/100rem;
+          background:url(../imgs/login/logo.png)no-repeat center / 160/100rem 160/100rem;
+      }
+  }
+  .content {
+      width: 100%;
+      height:944/100rem;
+      background: url(../imgs/login/bj.png) no-repeat center / 750/100rem 944/100rem;
+      overflow: hidden;
+        div {
+            width: 554/100rem;
+            height: 80/100rem;
+            margin-bottom: 20/100rem;
+            margin-left: 98/100rem;
+            &:nth-child(1){
+                margin-top: 90/100rem;
+            }
+            input,select {
+            width:100%;
+            height: 100%;
+            padding-left: 83/100rem;
+            font-size: 28/100rem;
+            color: #aaa;
+            font-weight: bold;
+            background: #fff;
+            border-bottom: none;
+            -webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;
+            -webkit-user-select: none;
+            }
+            
+            span[class^="icon"] {
+                width:42/100rem;
+                height: 42/100rem;
+                position: absolute;
+                top:14/100rem;
+                left: 16/100rem;
+                background:url(../imgs/login/user.png)no-repeat center / 42/100rem 42/100rem;
+            }
+            span.icon-pwd{
+                  background:url(../imgs/login/pwd.png)no-repeat center / 42/100rem 42/100rem;
+                }
+                span.icon-floor{
+                  background:url(../imgs/login/floor.png)no-repeat center / 42/100rem 42/100rem;
+                }
+                span.icon-area{
+                  background:url(../imgs/login/area.png)no-repeat center / 42/100rem 42/100rem;
+                }
+            &:nth-child(5){
+                border: none;
+                margin-top:145/100rem;
+                margin-bottom: 0;
+                position: relative;
+                em {
+                    width:100%;
+                    height: 70/100rem;
+                    position: absolute;
+                    font-size: 36/100rem;
+                    color:red;
+                    font-style: normal;
+                    text-align: center;
+                    bottom:70/100rem;
+                    left: 0;
+                }
+                button {
+                    width: 100%;
+                    height: 80/100rem;
+                    background: @MainColor;
+                    font-size: 36/100rem;
+                    color:#fff;
+                    border:none;
+                    font-weight: bold;
+                }
+                
+            }
+      }
+      .company {
+          width: 554/100rem;
+          height: 235/100rem;
+          font-size: 28/100rem;
+          color:#999;
+          margin: 0 auto;
+          border:0;
+          text-align: center;
+          padding-top: 160/100rem;
+      }
+  }
+}
