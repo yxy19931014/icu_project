@@ -37,6 +37,14 @@ ul{
   clear: both;
 }
 /*主体容器*/
+.mui-bar {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+.mui-bar-nav {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
 .bedBox {
     //  头部
     header {
@@ -84,9 +92,15 @@ ul{
             width: 100%;
             height: 100%;
             line-height: 100/100rem;
-            background: #fff;
+            background: #6acccc;
             display: none;
             cursor: pointer;
+            margin-left: -20/100rem;
+            text-align: center;
+            p {
+                color:#fff;
+            }
+            
         }
         
     }
@@ -122,13 +136,14 @@ ul{
                 height: 100/100rem;
                 position: absolute;
                 top:100/100rem;
-                left: 0;
+                right: 0;
                 text-align: center;
                 font-size: 28/100rem;
                 line-height: 100/100rem;
-                background:#fff;
+                background:#6acccc;
+                margin-right: -20/100rem;
                 p {
-                    color:@MainColor;
+                    color:#fff;
                 } 
             }
         
@@ -147,17 +162,24 @@ ul{
             background: #fff;
             position: relative;
             background: @MainColor;
+//          margin-top: -1px;
             form {
                 width: 100%;
                 padding-left: 20/100rem;
                 padding-right: 75/100rem;
+                outline: none;
+                .mui-input-row {
+                    height: 58/100rem;
+                }
                 input {
                     width: 100%;
-                    height: 30px;
+                    height: 58/100rem;
                     border-radius: 30/100rem;
                     padding-left: 20/100rem;
                     background: #fff;
                     text-align: left;
+                    outline: none;
+                    border:none;
                 }
             }
             .search_btn {
@@ -180,7 +202,7 @@ ul{
         .bedBox {
             width:50%;
             height: 120/100rem;
-            margin-bottom: 10/100rem;
+            margin-bottom: 20/100rem;
             &:nth-child(2n+1){
                 padding-left: 20/100rem;
                 padding-right: 5/100rem;
@@ -191,6 +213,7 @@ ul{
             }
             .bed {
                 background: #fff;
+                border-radius: 3px;
                 .bedNum {
                     font-size: 36/100rem;
                     color:#f04a4a;

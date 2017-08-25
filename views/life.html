@@ -16,11 +16,11 @@
 		
 		<div class="obervationBox">
 			<!--患者选择-->
-			<div id="popover" class="mui-popover">
+			<div id="popover">
 			  <h2 class="currentPatient">当前患儿</h2>
 			  <div class="currentData">
 			  		<div class="singleBox">
-			  			<a class="single"><span id='currentBed'>1501</span>&nbsp;<span id='currentName'>孟羽娟之女</span></a>
+			  			<a class="single"><span id='currentBed'></span>&nbsp;<span id='currentName'></span></a>
 			  		</div>
 			  </div>		  
 			  <h2 class="history">历史患儿</h2>
@@ -31,7 +31,7 @@
 			<header class="mui-bar mui-bar-nav">
 		        <h1 class="mui-title">
 		        	<span id='titleId'></span>
-		        	<a href='#popover'class="mui-icon mui-icon-arrowdown title_icon"id='downSelect'></a>
+		        	<a href='javascript:;'class="mui-icon mui-icon-arrowdown title_icon"id='downSelect'></a>
 		        </h1> 
 		        <div class="leftBack">
 		        	<a class="text"href="../index.html">床位概览</a>
@@ -47,43 +47,54 @@
 	    	</div>
 	    	
 	    	<div class="listcontainer">
-	    		<div class="VitalSigns">
+	    		<div class="vitalBox">
+	    			<div class="VitalSigns">
 		    		<ul>
 		    			<li>
-		    				<span class="vitalName">心率</span>
-		    				<input type="text"  name="HRVALUE"/>	    				
+		    				<label for="HRVALUE"><span class="vitalName">心率</span></label>
+		    				
+		    				<input type="number"  name="HRVALUE"id='HRVALUE'/>	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">脉搏</span>
-		    				<input type="text"name="PULSEVALUE" />	    				
+		    				<label for="PULSEVALUE"><span class="vitalName">脉搏</span></label>
+		    				
+		    				<input type="number"name="PULSEVALUE" id='PULSEVALUE'/>	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">呼吸</span>
-		    				<input type="text" name="RESPVALUE"/>	    				
+		    				<label for="RESPVALUE"><span class="vitalName">呼吸</span></label>
+		    				
+		    				<input type="number" name="RESPVALUE"id='RESPVALUE'/>	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">无创收缩压</span>
-		    				<input type="text"name="NIBPSVALUE" />	    				
+		    				<label for="NIBPSVALUE"><span class="vitalName">无创收缩压</span></label>
+		    				
+		    				<input type="number"name="NIBPSVALUE"id='NIBPSVALUE' />	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">无创舒张压</span>
-		    				<input type="text"name="NIBPDVALUE" />	    				
+		    				<label for="NIBPDVALUE"><span class="vitalName">无创舒张压</span></label>
+		    				
+		    				<input type="number"name="NIBPDVALUE"id='NIBPDVALUE' />	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">有创收缩压</span>
-		    				<input type="text"name="ARTSVALUE" />	    				
+		    				<label for="ARTSVALUE"><span class="vitalName">有创收缩压</span></label>
+		    				
+		    				<input type="number"name="ARTSVALUE"id='ARTSVALUE' />	    				
 		    			</li>
 		    			<li>
-		    				<span class="vitalName">无创舒张压</span>
-		    				<input type="text" name="ARTDVALUE"/>	    				
+		    				<label for="ARTDVALUE"><span class="vitalName">无创舒张压</span></label>
+		    				
+		    				<input type="number" name="ARTDVALUE"id='ARTDVALUE'/>	    				
 		    			</li>
-		    			<li>
-		    				<span class="vitalName">血氧</span>
-		    				<input type="text"name="SPO2VALUE" />	    				
+		    			<li class="lastLi">
+		    				<label for="SPO2VALUE"><span class="vitalName">血氧</span></label>
+		    				
+		    				<input type="number"name="SPO2VALUE"id='SPO2VALUE' />	    				
 		    			</li>
 		    		</ul>
 	    		</div>
-	    		<div class="operBtn">
+
+	    		</div>
+	    		<div class="operBtn saveBack">
 	    			<button class="import"id='import'>导入设备信息</button>
 	    			<div class="submitBtn">
 	    				<button class="reset"id='reset'>清空</button>
@@ -133,13 +144,6 @@
 		<script src="../js/public.js"></script>
 		<script>	
 			document.getElementById('titleId').innerHTML=patientName;
-			
-			document.getElementById('defaultTab').addEventListener('tap',function(){
-				location.href='observation.html?MRN='+MRN+'&PatientName='+ escape(patientName)+'&PatientNumber='+patientNumber;
-			});
-			document.getElementById('bedOper').addEventListener('tap',function(){
-				location.href='bedOperate.html?MRN='+MRN+'&PatientName='+ escape(patientName)+'&PatientNumber='+patientNumber;
-			});
 		</script>
 		
 			

@@ -25,6 +25,16 @@ body{
   margin: 0;
   padding: 0;
 }
+a,img,button,input,textarea{
+    -webkit-appearance: none;
+    outline: none;
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
+    }
+    input{
+        &:active {
+            background: #fff;
+        }
+    }
 ul{
   list-style: none;
 }
@@ -38,7 +48,7 @@ ul{
   clear: both;
 }
 /*主体容器*/
-.OperateBox {
+   .OperateBox {
     background: #efefef;
     //  头部
     header {
@@ -53,9 +63,9 @@ ul{
     color:#fff;
     font-weight: bold;
     line-height: 100/100rem;
-    .title_icon {
-        margin-left: 10/100rem;
-    }
+        .title_icon {
+            margin-left: 10/100rem;
+        }
     }
     .leftBack {
         positon:absolute;
@@ -163,40 +173,7 @@ ul{
                     color:#333;
                     line-height: 68/100rem;
                 }  
-                s {
-                    width:50%;
-                    height: 66/100rem;
-                    font-size: 28/100rem;
-                    float: left;
-                    margin-bottom: 0;
-                    font-style: normal;
-                    i {
-                        width: 50%;
-                        float: right;
-                        font-style: normal;
-                        position: relative;
-                        overflow: hidden;
-                        input {
-                            width:100%;
-                            height: 66/100rem;
-                            font-size: 28/100rem;
-                            text-align: right;
-                            border: none;
-                            margin-bottom: 0;
-                            position: absolute;
-                            top:0;
-                            left: 0;
-                            padding: 0;
-                        }
-                        input.num {
-                            width:45%;
-                        }
-                        .unit {
-                            width:5%;
-                        }
-                    }  
-                }
-                 select,input {
+                 select,.num {
                     width:50%;
                     height: 66/100rem;
                     line-height: 66/100rem;
@@ -209,8 +186,20 @@ ul{
                     padding-left: 30%;
                     color:#999;
                  }  
-                 input {
+                 .num {
                      width:45%;
+                 }
+                 .selectTime {
+                    width:50%;
+                    height: 66/100rem;
+                    line-height: 66/100rem;
+                    font-size: 28/100rem;
+                    float: left;
+                    border:0;
+                    margin-bottom: 0;
+                    padding: 0;
+                    padding-left: 30%;
+                    color:#999;
                  }
                  .unit {
                      width: 5%;
@@ -222,17 +211,31 @@ ul{
                     border-bottom: none;
                 }
             }
+            .times {
+                padding-right: 50/100rem;
+                display: flex;
+                flex-wrap: wrap;
+                position: relative;
+                background: #fff;
+                .singleTime {
+                    width:33.33%;
+                    display: inline-block;
+                    margin: 0; 
+                    height: 50/100rem;
+                    line-height: 50/100rem; 
+                    border:0;                
+                }
+                .clearBtn {
+                    width: 42/100rem;
+                    height: 42/100rem;
+                    background: url(../imgs/observation/delete.png)no-repeat center /42/100rem 42/100rem;
+                    position: absolute;
+                    right: 5/100rem;
+                    top:6/100rem;
+                }
+            }
         }
-        .save {
-            width:710/100rem;
-            height: 68/100rem;
-            background: @MainColor;
-            margin-left: 20/100rem;
-            margin-top: 40/100rem;
-            color:#fff;
-            font-size: 28/100rem;
-            font-weight: bold;
-        }
+        
     }
     .listcontainer.hasSave {
         input,select {
@@ -246,6 +249,18 @@ ul{
     }
 //  温度部分
 
+    .save {
+        width:710/100rem;
+        height: 68/100rem;
+        background: @MainColor;
+        margin-left: 20/100rem;
+        margin-top: 40/100rem;
+        color:#fff;
+        font-size: 28/100rem;
+        font-weight: bold;
+        position: fixed;
+        bottom:120/100rem;
+    }
 //  底部导航部分
     .footer {
         height: 88/100rem;

@@ -8,173 +8,21 @@
 
 @import "adpater";
 
-/*样式处理*/
-body,form,input, button,fieldset {  
-  margin:0;  
-  padding:0;  
-  border:none;
-  outline: none;
-}  
-body{
-  font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;;
-}
-*,::before,::after,input[type="search"]{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-ul{
-  list-style: none;
-}
-.clearfix::after,
-.clearfix::before{
-  content: "";
-  display: block;
-  visibility: hidden;
-  height: 0;
-  line-height: 0;
-  clear: both;
-}
+
 /*主体容器*/
 .obervationBox {
-    //  头部
-    header {
-        width:100%;
-        height: 100/100rem;
-        background: @MainColor;
-        position:relative;
-    h1 {
-    width:100%;
-    text-align: center;
-    font-size: 36/100rem;
-    color:#fff;
-    font-weight: bold;
-    line-height: 100/100rem;
-    .title_icon {
-        margin-left: 10/100rem;
-    }
-    }
-    .leftBack {
-        positon:absolute;
-        top:0;
-        left: 20/100rem;        
-        .text {
-            font-size: 28/100rem;
-            color:#fff;
-            line-height: 100/100rem;
-            cursor: pointer;
-        }
-    }
+    position: relative;
     
-    .rightOnline {
-        width:140/100rem;
-        position:absolute;
-        right:20/100rem;
-        top:0;
-        z-index: 99;
-            a {
-                width:100%;
-            font-size:28/100rem;
-            height: 100/100rem;
-            line-height: 100/100rem;
-            text-align: center;
-            color:#fff;
-            background:@MainColor;
-            position:absolute;
-            .downIcon {
-                width: 30/100rem;
-                height: 30/100rem;
-                position: absolute;
-                background: url(../imgs/bed/down.png)no-repeat center / 30/100rem 30/100rem;
-                top:35/100rem;
-                right: 0rem;
-            }
-            }
-            #downContent {
-                width:100%;
-                height: 100/100rem;
-                position: absolute;
-                top:100/100rem;
-                left: 0;
-                text-align: center;
-                font-size: 28/100rem;
-                line-height: 100/100rem;
-                background:#fff;
-                p {
-                    color:@MainColor;
-                } 
-            }
-        
-    }
-    }
-    
-    
-//  日期时间部分
-    .dataTime {
-        width:100%;
-        height: 70/100rem;
-        margin-top: 20/100rem;
-        border-top:1px solid #bebebe;
-        border-bottom:1px solid #bebebe;
-        background: #fff;
-        overflow: hidden;
-        #currentDate {
-            height: 70/100rem;
-            line-height: 70/100rem;
-            display: inline-block;
-            padding-left: 20/100rem;
-        }
-        .time {
-            width:510/100rem;
-            float: right;
-            height: 100%;
-            position: relative;
-            
-            span {
-                width:170/100rem;
-                height: 100%;  
-                position:absolute;
-                top:0;    
-                left: 0;  
-                cursor: pointer;
-                input {
-                    width:100%;
-                    height: 100%;
-                    border:none;
-                    color:@MainColor;
-                    font-size: 28/100rem;
-                }
-                i {
-                    width:100%;
-                    height: 100%;
-                    color:#ccc;
-                    font-size: 28/100rem;
-                    display: block;
-                    position: absolute;
-                    top:0;
-                    left: 0;
-                    background: #fff;
-                    font-style:normal;
-                    text-align: center;
-                    line-height: 70/100rem;
-                }
-            }
-            span.now {
-                i {
-                    color:@MainColor;                    
-                } 
-            }
-            
-        }
-    }
+
     .listcontainer {
         padding-bottom: 130/100rem;
         .temperature,.blood,.weight {
             width:100%;
             margin-top: 22/100rem;           
             border-top: 1px solid #bebebe;
+            padding: 0 20/100rem 0 20/100rem;
+            background: #fff;
+            border-bottom: 1px solid #bebebe;
             ul {
                 li {
                 width:100%;
@@ -182,6 +30,7 @@ ul{
                 background: #fff;
                 padding-left: 20/100rem;
                 border-bottom: 1px solid #bebebe;
+                overflow: hidden;
                 span {
                     width:30%;
                     height: 68/100rem;
@@ -189,8 +38,7 @@ ul{
                     font-size: 28/100rem;
                     color:#333;
                     line-height: 68/100rem;
-                }
-                
+                }               
                 input {
                     width:70%;
                     height: 66/100rem;
@@ -198,17 +46,10 @@ ul{
                     float: left;
                     text-align: right;
                     border: none;
-                    margin-bottom: 0;
-                }
-                select,option {
                     padding: 0;
-                    padding-left: 50%;
-                    width:70%;
-                    height: 66/100rem;
-                    font-size: 28/100rem;
-                    float: left;
-                    text-align: right;
-                    border: none;
+                    padding-right: 20/100rem;
+                    margin-bottom: 0;
+                    color:#999;
                 }
                 input.testName {
                     width:65%;
@@ -217,77 +58,78 @@ ul{
                     width:5%;
                 }
             }
+            .selectItem {
+                
+                span{
+                    width:50%;
+                }
+                .selectRight {
+                    text-align: right;
+                    padding-right: 20/100rem;
+                    color:#999;
+                }
             }
+            .lastLi {
+                border: none;
+            }
+            
+            }
+        }
+        .last {
+                margin-bottom: 100/100rem;
+            }
+        .first {
+            background: @MainColor;
+        }
+        .saveBack {
+            width: 100%;
+            background: #efefef;
+            position: fixed;
+            bottom: 100/100rem;
         }
         .save {
             width:710/100rem;
             height: 68/100rem;
             background: @MainColor;
             margin-left: 20/100rem;
-            margin-top: 40/100rem;
+            margin-bottom: 20/100rem;
             color:#fff;
             font-size: 28/100rem;
             font-weight: bold;
         }
     }
     .listcontainer.hasSave {
-        input,select {
-            color:@MainColor;
+        .temperature,.blood,.weight {
+            ul {
+                input {
+                    color:#333;
+                }
+                input::-webkit-input-placeholder {
+         /* placeholder颜色  */
+        color: #333;         }
+            }
+            .selectItem .selectRight {
+                    color:#333;
+                }
+                
         }
+        
+                
+        
     }
     .listcontainer.hasSave.OtherData {
-        input,select {
-            color:red;
+        .temperature,.blood,.weight {
+            ul {
+                input {
+                    color:#999;
+                }
+                
+            }
+            .selectItem .selectRight {
+                    color:#999;
+                }
         }
     }
-//  温度部分
 
-//  底部导航部分
-    .footer {
-        height: 88/100rem;
-        a{
-            span.mui-icon {
-                width:42/100rem;
-                height: 42/100rem;
-            }
-            span.oberItem {
-                background: url(../imgs/observation/eye_gray.png)no-repeat center / 42/100rem 42/100rem;
-            }
-            span.bedOper {
-                background: url(../imgs/observation/operate_gray.png)no-repeat center / 42/100rem 42/100rem;
-            }
-            span.out {
-                background: url(../imgs/observation/out_gray.png)no-repeat center / 42/100rem 42/100rem;
-            }
-            span.in {
-                background: url(../imgs/observation/in_gray.png)no-repeat center / 42/100rem 42/100rem;
-            }
-            span.life {
-                background: url(../imgs/observation/lift_gray.png)no-repeat center / 42/100rem 42/100rem;
-            }
-            span.mui-tab-label {
-                font-size: 24/100rem;
-                color:#999;
-            }
-        }
-        .active span.mui-tab-label {
-          font-size: 24/100rem;
-          color:@MainColor;
-        }
-        .active .oberItem {
-          background: url(../imgs/observation/eye.png)no-repeat center / 42/100rem 42/100rem;
-        }
-        .active .bedOper {
-          background: url(../imgs/observation/operate.png)no-repeat center / 42/100rem 42/100rem;
-        }
-        .active .out {
-          background: url(../imgs/observation/out.png)no-repeat center / 42/100rem 42/100rem;
-        }
-        .active .in {
-          background: url(../imgs/observation/in.png)no-repeat center / 42/100rem 42/100rem;
-        }
-        .active .life {
-          background: url(../imgs/observation/lift.png)no-repeat center / 42/100rem 42/100rem;
-        }
-    }
 }
+

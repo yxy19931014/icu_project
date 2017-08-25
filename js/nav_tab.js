@@ -7,7 +7,8 @@ var jumpArr=['observation.html','bedOperate.html','out.html','in.html','life.htm
 						aObj[j].classList.remove('active');
 						}
 						this.classList.add('active');
-						console.log(n);
+//						var subPage=plus.webview.getWebviewById("bedOperSub");
+//						plus.webview.close(subPage);
 						location.href=jumpArr[n]+'?MRN='+MRN+'&PatientName='+ escape(patientName)+'&PatientNumber='+patientNumber;	
 					}
 				

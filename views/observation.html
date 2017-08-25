@@ -6,6 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet/less" href="../less/public.less" />
 		<link rel="stylesheet/less" href="../less/observation.less" />
 		<script src="../lib/less/less.min.js"></script>
 	</head>
@@ -13,9 +14,28 @@
 	<body>
 		<script src="../js/mui.min.js"></script>
 		<div class="obervationBox">
+			<!--患者选择-->
+			<div id="popover">
+			  <h2 class="currentPatient">当前患儿</h2>
+			  <div class="currentData">
+			  		<div class="singleBox">
+			  			<a class="single"><span id='currentBed'></span>&nbsp;<span id='currentName'></span></a>
+			  		</div>
+			  </div>		  
+			  <h2 class="history">历史患儿</h2>
+			  <div class="historyData"id='historyData'>
+			  </div>
+			</div>
+			<div class="selectArea"id='selectArea'>
+				<h2>请选择<span id='itemName'></span></h2>
+				<ul id='itemCon'class="itemCon">
+					
+				</ul>
+			</div>
+				
 			<!--头部-->
 			<header class="mui-bar mui-bar-nav">
-		        <h1 class="mui-title"><span id='titleId'></span><span class="mui-icon mui-icon-arrowdown title_icon"id='patientDown'></span></h1> 
+		        <h1 class="mui-title"><span id='titleId'></span><span class="mui-icon mui-icon-arrowdown title_icon"id='downSelect'></span></h1> 
 		        <div class="leftBack">
 		        	<a class="text"href="../index.html">床位概览</a>
 		        </div>		        	
@@ -29,92 +49,75 @@
 	    			<span><i class="three"></i></span>
 	    		</span>
 	    	</div>
-	    		<div class="listcontainer">
-	    		<div class="temperature">
+	    	<div class="listcontainer">
+	    		<div id="list">
+	    			<div class="temperature">		
 		    		<ul>
-		    			<li><span>体温</span><input type="text"  class="testName"name='Temperature'/><span class="unit">℃</span></li>
-		    			<li><span>箱温</span><input type="text" class="testName" name='Incubator'/><span class="unit">℃</span></li>
-		    			<li><span>湿度</span><input type="text" class="testName" name='Humidity'/><span class="unit">℃</span></li>
+		    			<li><label for="Temperature"><span>体温</span></label><input type="number" class="testName" name='Temperature'id='Temperature'/><span class="unit">℃</span></li>
+		    			<li><label for="Incubator"><span>箱温</span></label><input type="number" class="testName" name='Incubator'id='Incubator'/><span class="unit">℃</span></li>
+		    			<li class="lastLi"><label for="Humidity"><span>湿度</span></label><input type="number" class="testName" name='Humidity'id='Humidity'/><span class="unit">℃</span></li>
 		    		</ul>
-	    		</div>
-	    		<div class="blood">
+	    			</div>
+	    			<div class="blood">
 		    		<ul>
-		    			<li>
-		    				<span>血氧位置</span>
-		    				<select name="BloodOxygen" id="OxygenDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    			<li class="selectItem">
+		    				<span class="selectLeft">血氧位置</span>
+		    				<span class="selectRight"name='BloodOxygen'>请选择</span>
 		    			</li>
-		    			<li>
-		    				<span>面色/脂端</span>
-		    				<select name="Face" id="faceDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    			<li class="selectItem">
+		    				<span>面色/肢端</span>
+		  					<span class="selectRight"name='Face'>请选择</span>
 		    			</li>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>皮肤</span>
-		    				<select name="Skin" id="skinDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='Skin'>请选择</span>
 		    			</li>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>肌张力</span>
-		    				<select name="MuscularTension" id="muscleDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='MuscularTension'>请选择</span>
 		    			</li>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>腹部</span>
-		    				<select name="Abdomen" id="stomachDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='Abdomen'>请选择</span>
 		    			</li>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>体位</span>
-		    				<select name="BodyPosition" id="bodyDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='BodyPosition'>请选择</span>
 		    			</li>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>氧疗方式</span>		    				
-		    				<select name="OxygenTherapy" id="oxygenTherapyDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='OxygenTherapy'>请选择</span>
 		    			</li>
-		    			<li><span>FiO2</span><input type="text" name='FiO2'/></li>
-		    			<li>
+		    			<li><label for="FiO2"><span>FiO2</span></label><input type="number" name='FiO2'id='FiO2'/></li>
+		    			<li class="selectItem lastLi">
 		    				<span>口鼻腔分泌物</span>
-		    				<select name="Oronasal" id="SecretionDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='Oronasal'>请选择</span>
 		    			</li>
 		    		</ul>
 	    		</div>
-	    		<div class="weight">
+	    			<div class="weight last">
 		    		<ul>
-		    			<li>
+		    			<li class="selectItem">
 		    				<span>模式</span>
-		    				<select name="Model" id="modelDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='Model'>请选择</span>
 		    			</li>
-		    			<li><span>频率</span><input type="text"name='FQCY' /></li>
-		    			<li>
+		    			<li><label for="FQCY"><span>频率</span></label><input type="number"name='FQCY'id='FQCY' /></li>
+		    			<li class="selectItem">
 		    				<span>PIP/PEEP</span>
-		    				<select name="PiP" id="PIPDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    				<span class="selectRight"name='PiP'>请选择</span>
 		    			</li>
-		    			<li>
-		    				<span>气管里分泌物</span>
-		    				<select name="AirPipe" id="tracheaDom">
-		    					<option value="">请选择</option>
-		    				</select>
+		    			<li class="selectItem">
+		    				<span>气管内分泌物</span>
+		    				<span class="selectRight"name='AirPipe'>请选择</span>
 		    			</li>
-		    			<li><span>体重</span><input type="text"name='Weight' /></li>
+		    			<li class="lastLi"><label for="Weight"><span>体重</span></label><input type="number"name='Weight'id='Weight' /></li>
 		    		</ul>
 	    		</div>
-	    		<button class="save"id='saveBtn'>保存并上传</button>
+	    		</div>
+	    		<div class="saveBack">
+	    			<button class="save"id='saveBtn'>保存并上传</button>
+	    		</div>
+	    		
 	    	</div>	    		
 	    	<!--底部导航-->
 	    	<nav class="mui-bar mui-bar-tab footer">
@@ -142,87 +145,28 @@
 			
 		</div>
 		<script src="../lib/template/template.js"></script>
-		<script type='text/template'id='OxygenTpl'>
-			<option value="">请选择</option>
-			{{each Oxygen as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
+		<script type='text/template'id='selectPatient'>
+			{{each list as value i}}
+			<div class="singleBox"MRN='{{value.MRN}}'PatientName='{{value.PatientName}}'PatientNumber='{{value.PatientNumber}}'id='hisData'>
+			  <a class="single"><span>{{value.Bed}}</span>&nbsp;<span>{{value.PatientName}}</span></a>
+			</div>
+			{{/each}}
 		</script>
-		<script type='text/template'id='faceTpl'>
-			<option value="">请选择</option>
-			{{each face as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='skinTpl'>
-			<option value="">请选择</option>
-			{{each skin as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='muscleTpl'>
-			<option value="">请选择</option>
-			{{each muscle as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='stomachTpl'>
-			<option value="">请选择</option>
-			{{each stomach as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='bodyTpl'>
-			<option value="">请选择</option>
-			{{each body as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='oxygenTherapyTpl'>
-			<option value="">请选择</option>
-			{{each oxygenTherapy as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='SecretionTpl'>
-			<option value="">请选择</option>
-			{{each Secretion as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='modelTpl'>
-			<option value="">请选择</option>
-			{{each model as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='PIPTpl'>
-			<option value="">请选择</option>
-			{{each PIP as value i}}
-		    	<option value="{{value}}">{{value}}</option>
-		    {{/each}}
-		</script>
-		<script type='text/template'id='tracheaTpl'>
-			<option value="">请选择</option>
-			{{each trachea as value i}}
-		    	<option value="{{value}}">{{value}}</option>
+		<script type='text/template'id='selectItemTpl'>
+			{{each list as value i}}
+		    	<li>{{value}}</li>
 		    {{/each}}
 		</script>
 		<script src="../js/public.js"></script>
 		<script>
-			var MRN=GetRequest(location.search).MRN;
-			var patientName=unescape(GetRequest(location.search).PatientName);
-			var patientNumber=GetRequest(location.search).PatientNumber;
 			document.getElementById('titleId').innerHTML=patientName;
-			var inputs=document.getElementsByTagName('input');
-			for(var i=0;i<inputs.length;i++){
-				inputs[i].setAttribute('placeholder','请输入');
-			}
 		</script>
 		<!--时间控件-->
 		<script>
-			var selectors=document.getElementsByTagName('select');
-			document.getElementById('currentDate').innerHTML=new Date().Format("yyyy-MM-dd");
+			var inputs=document.getElementsByClassName('listcontainer')[0].getElementsByTagName('input');
+			var selectRights=document.getElementsByClassName('selectRight');
+			var currentDate=document.getElementById('currentDate');
+			currentDate.innerHTML=new Date().Format("yyyy-MM-dd");
 			document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
 			document.getElementsByClassName('listcontainer')[0].classList.remove('OtherData');
 			//时间控件
@@ -295,15 +239,15 @@
 								},
 							dataType:'json',
 							success:function(data){
+								console.log(data);
 								if(data.Code==0){
 									if(parseInt(two.innerHTML.substr(0,2))!=parseInt(data.Contents.OperateTime.substring(data.Contents.OperateTime.indexOf(" "),data.Contents.OperateTime.indexOf(":")))){
-										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
-										var inputs=document.getElementsByClassName('listcontainer')[0].getElementsByTagName('input');
+										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');										
 										for(var i=0;i<inputs.length;i++){
 											inputs[i].value='';
 										}
-										for(var j=0;j<selectors.length;j++){
-											selectors[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择';
 										} 
 										return;
 									}
@@ -312,8 +256,8 @@
 											continue;
 										}
 										document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
-										document.getElementsByName(key)[0].value=data.Contents[key];
-										
+										document.getElementsByName(key)[0].value=data.Contents[key];			
+										document.getElementsByName(key)[0].innerHTML=data.Contents[key];								
 									}
 								}else {
 										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
@@ -321,8 +265,8 @@
 										for(var i=0;i<inputs.length;i++){
 											inputs[i].value='';
 										}
-										for(var j=0;j<selectors.length;j++){
-											selectors[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].value='请选择';
 										} 
 								}
 							}
@@ -380,6 +324,9 @@
 						}
 						var thisInnerHtml=this.innerHTML;
 						var tapIndex=parseInt(one.getAttribute('index'));
+						if(tapIndex==9){
+							currentDate.innerHTML=getPreDay(currentDate.innerHTML);
+						}
 							two.innerHTML=timeArr[tapIndex];
 							two.setAttribute('index',tapIndex);
 							three.innerHTML=timeArr[tapIndex+1];
@@ -398,7 +345,7 @@
 							data:{
 								msgBody:JSON.stringify({
 		                   			PatientMRN:MRN,
-		                    		OperateTime:new Date().Format('yyyy-MM-dd')+" "+thisInnerHtml+":00",
+		                    		OperateTime:currentDate.innerHTML+" "+thisInnerHtml+":00",
 		                    		ColumnID:parseInt(this.getAttribute('index'))+3+''
                 				}),                   
                 				msgHeader:JSON.stringify({
@@ -421,7 +368,7 @@
 										}
 										document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
 										document.getElementsByName(key)[0].value=data.Contents[key];
-										
+										document.getElementsByName(key)[0].innerHTML=data.Contents[key];
 									}
 								}else {
 										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
@@ -429,22 +376,23 @@
 										for(var i=0;i<inputs.length;i++){
 											inputs[i].value='';
 										}
-										for(var j=0;j<selectors.length;j++){
-											selectors[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择';
 										} 
 								}
 							}
 						})
 					})
 //					切换到最新的时间
-					three.addEventListener('tap',function(){
-//						console.log(parseInt(this.innerHTML.substr(0,2)));
-//						console.log(new Date().getHours());
+					three.addEventListener('tap',function(){						
 						if(!this.innerHTML){
 							return;
 						}
 						var thisInnerHtml=this.innerHTML;
 						var tapIndex=parseInt(three.getAttribute('index'));
+						if(tapIndex==10){
+							currentDate.innerHTML=getNextDay();
+						}
 								two.innerHTML=timeArr[tapIndex];
 								two.setAttribute('index',tapIndex);
 								one.innerHTML=timeArr[tapIndex-1];
@@ -463,7 +411,7 @@
 							data:{
 								msgBody:JSON.stringify({
 		                   			PatientMRN:MRN,
-		                    		OperateTime:new Date().Format('yyyy-MM-dd')+" "+thisInnerHtml+":00",
+		                    		OperateTime:currentDate.innerHTML+" "+thisInnerHtml+":00",
 		                    		ColumnID:parseInt(this.getAttribute('index'))+3+''
                 				}),                   
                 				msgHeader:JSON.stringify({
@@ -483,21 +431,16 @@
 											continue;
 										}
 										document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
-										document.getElementsByName(key)[0].value=data.Contents[key];									
+										document.getElementsByName(key)[0].value=data.Contents[key];
+										document.getElementsByName(key)[0].innerHTML=data.Contents[key];
 									}
 								}else {
 										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
-										var inputs=document.getElementsByClassName('listcontainer')[0].getElementsByTagName('input');
-										for(var i=0;i<inputs.length;i++){
-											inputs[i].value='';
-										}
-										for(var j=0;j<selectors.length;j++){
-											selectors[j].value='';
-										} 
+									}
 								}
-							}
-						})
-					})
+							});
+							});
+										
 //					保存并上传数据
 					document.getElementById('saveBtn').addEventListener('tap',function(e){
 						var saveObj={
@@ -507,15 +450,13 @@
 						ColumnId:parseInt(two.getAttribute('index'))+3+'',
 						OperateTime:new Date().Format('yyyy-MM-dd')+" "+two.innerHTML+":00"
 						};
-						var inputs=document.getElementsByClassName('listcontainer')[0].getElementsByTagName('input');
 						for(var i=0;i<inputs.length;i++){
 							var nameInputAttr=inputs[i].getAttribute('name');
 							saveObj[nameInputAttr]=inputs[i].value;
 						}
-						for(var j=0;j<selectors.length;j++){
-							var nameSelectAttr=selectors[j].getAttribute('name');
-							saveObj[nameSelectAttr]=selectors[j].value;
-						} 
+						for(var i=0;i<selectRights.length;i++){
+							saveObj[selectRights[i].getAttribute('name')]=selectRights[i].innerHTML;
+						}
 						mui.ajax({
 							url:url,
 							type:'post',
@@ -529,7 +470,6 @@
 							},
 							dataType:'json',
 							success:function(data){
-								console.log(data);
 								if(data.Code==0){
 									document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
 									document.getElementsByClassName('listcontainer')[0].classList.remove('OtherData');
@@ -540,54 +480,81 @@
 
 				}
 			})			
-							
-			getObservation('OxygenDom','血氧位置','Oxygen','OxygenTpl');
-			getObservation('faceDom','面色/肢端','face','faceTpl');
-			getObservation('skinDom','皮肤','skin','skinTpl');
-			getObservation('muscleDom','肌张力','skin','skinTpl');
-			getObservation('stomachDom','腹部','stomach','stomachTpl');
-			getObservation('bodyDom','体位','body','bodyTpl');
-			getObservation('oxygenTherapyDom','氧疗方式','oxygenTherapy','oxygenTherapyTpl');
-			getObservation('SecretionDom','口鼻腔分泌物','Secretion','SecretionTpl');
-			getObservation('modelDom','模式','model','modelTpl');
-			getObservation('PIPDom','PIP/PEEP','PIP','PIPTpl');
-			getObservation('tracheaDom','气管内分泌物','trachea','tracheaTpl');
-			function getObservation(id,obserInstance,list,tpl){
-				mui.ajax({
-					url:url,
-					type:'get',
-					data:{
-						msgBody:JSON.stringify({
-		                   			Observation:obserInstance
-                				}),                   
-                				msgHeader:JSON.stringify({
-                    				ServerName:'GetSelectValues',
-                    				Format: 'json',
-                    				CallOperator: '',
-                    				Certificate:'123456'
-                    			})
-					},
-					dataType:'json',
-					success:function(data){
-						if(data.Code==0){
-							var obj={};
-							obj[list]=data.Contents;
-							var html=template(tpl,obj);
-							document.getElementById(id).innerHTML=html;
-						}else {
-							var obj={};
-							data.Contents=[];
-							data.Contents[0]='';
-							obj[list]=data.Contents;
-							var html=template(tpl,obj);
-							document.getElementById(id).innerHTML=html;
-						}
-						
-					}
-				})
-			}
+
 		</script>
-		
+		<script>
+//			下拉选项
+			var selectDom=document.getElementsByClassName('selectItem');
+			var selectArea=document.getElementById('selectArea');
+			var itemName=document.getElementById('itemName');
+			var mask = mui.createMask(function(){
+				selectArea.style.display='none';
+				selectArea.classList.remove('hasShow');
+				itemName.innerHTML='';
+			});
+			function selectInfo(ele){
+				if(ele.classList.contains('hasShow')){
+						ele.classList.remove('hasShow');
+						selectArea.style.display='none';
+						itemName.innerHTML='';
+						mask.close();
+						return;
+					}else {
+						ele.classList.add('hasShow');
+						selectArea.style.display='block';
+						itemName.innerHTML=ele.firstElementChild.innerHTML;
+						mask.show();
+					}
+					mui.ajax({
+						url:url,
+						type:'get',
+						data:{
+							msgBody:JSON.stringify({
+			                   			Observation:ele.firstElementChild.innerHTML
+	                				}),                   
+	                				msgHeader:JSON.stringify({
+	                    				ServerName:'GetSelectValues',
+	                    				Format: 'json',
+	                    				CallOperator: '',
+	                    				Certificate:'123456'
+	                    			})
+						},
+						dataType:'json',
+						success:function(data){
+							console.log(data);
+							if(data.Code==0){
+								var items=data.Contents;
+								var html=template('selectItemTpl',{list:items});
+								document.getElementById('itemCon').innerHTML=html;
+							}else {
+								data.Contents=[];
+								data.Contents[0]='';
+								var items=data.Contents;
+								var html=template('selectItemTpl',{list:items});
+								document.getElementById('itemCon').innerHTML=html;
+							}
+							var lis=document.getElementsByClassName('itemCon')[0].getElementsByTagName('li');
+							for(var i=0;i<lis.length;i++){
+								lis[i].addEventListener('tap',function(){
+									ele.lastElementChild.innerHTML=this.innerHTML;
+									selectArea.style.display='none';
+									itemName.innerHTML='';
+									mask.close();
+								})
+								
+							}
+						}
+				})
+					
+			}
+			
+			for(var i=0;i<selectDom.length;i++){
+				selectDom[i].addEventListener('tap',function(){
+					selectInfo(this);
+				});
+			}
+			
+		</script>
 			
 		<!--底部导航切换-->
 		<script src="../js/nav_tab.js"></script>	

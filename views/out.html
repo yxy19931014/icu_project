@@ -6,6 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet/less" href="../less/public.less" />
 		<link rel="stylesheet/less" href="../less/out.less" />
 		<script src="../lib/less/less.min.js"></script>
 	</head>
@@ -13,9 +14,29 @@
 	<body>
 		<script src="../js/mui.min.js"></script>
 		<div class="obervationBox">
+			<!--患者选择-->
+			<div id="popover">
+			  <h2 class="currentPatient">当前患儿</h2>
+			  <div class="currentData">
+			  		<div class="singleBox">
+			  			<a class="single"><span id='currentBed'></span>&nbsp;<span id='currentName'></span></a>
+			  		</div>
+			  </div>		  
+			  <h2 class="history">历史患儿</h2>
+			  <div class="historyData"id='historyData'>
+			  </div>
+			</div>
+			<div class="selectArea"id='selectArea'>
+				<h2>请选择</h2>
+				<ul id='itemCon'class="itemCon">
+					
+				</ul>
+			</div>
+
+				
 			<!--头部-->
 			<header class="mui-bar mui-bar-nav">
-		        <h1 class="mui-title"><span id='titleId'></span><span class="mui-icon mui-icon-arrowdown title_icon"></span></h1> 
+		        <h1 class="mui-title"><span id='titleId'></span><span class="mui-icon mui-icon-arrowdown title_icon"id='downSelect'></span></h1> 
 		        <div class="leftBack">
 		        	<a class="text"href="../index.html">床位概览</a>
 		        </div>		        	
@@ -31,54 +52,48 @@
 	    	</div>
 	    	
 	    	<div class="listcontainer">
-	    		<div class="amount">
+	    		<div class="amoutBox">
+	    			<div class="amount">
 		    		<ul>
-		    			<li><span class="amountName"name='尿量'>尿量</span>
-		    				<select name="" id=""class="outDec explainCon">
-		    					
-		    				</select>	    				
+		    			<li class="selectItem"><span class="amountName"name='尿量'>尿量</span>
+		    				<span class="selectRight">请选择<i></i></span>	    				
 		    			</li>
-		    			<li>
-		    				<input type="text"  class="amountInput"/>
-		    				<select name="" id=""class="unit">
-		    					
-		    				</select>
+		    			<li class="selectNum">
+		    				<input type="number"  class="amountInput"/>
+		    				<span class="unit">ml</span>
 		    			</li>
-						<li><span class="amountName"name='粪便'>粪便</span>
-		    				<select name="" id=""class="outDec explainCon">
-		    				</select>	    				
+						<li class="selectItem"><span class="amountName"name='粪便'>粪便</span>
+		    				<span class="selectRight">请选择<i></i></span>	    				
 		    			</li>
-		    			<li>
-		    				<input type="text"  class="amountInput"/>
-		    				<select name="" id=""class="unit">
-		    				</select>
+		    			<li class="selectNum">
+		    				<input type="number"  class="amountInput"/>
+		    				<span class="unit">ml</span>
 		    			</li>
-						<li><span class="amountName"name='胃肠引流量'>胃肠引流量</span>
-		    				<select name="" id=""class="outDec explainCon">
-		    				</select>	    				
+						<li class="selectItem"><span class="amountName"name='胃肠引流量'>胃肠引流量</span>
+		    				<span class="selectRight">请选择<i></i></span>	    				
 		    			</li>
-		    			<li>
-		    				<input type="text"  class="amountInput"/>
-		    				<select name="" id=""class="unit">
-		    				</select>
+		    			<li class="selectNum">
+		    				<input type="number"  class="amountInput"/>
+		    				<span class="unit">ml</span>
 		    			</li>
-						<li><span class="amountName"name='其他'>其他</span>
-		    				<select name="" id=""class="outDec explainCon">
-		    				</select>	    				
+						<li class="selectItem"><span class="amountName"name='其他'>其他</span>
+		    				<span class="selectRight">请选择<i></i></span>	    				
 		    			</li>
-		    			<li>
-		    				<input type="text"  class="amountInput"/>
-		    				<select name="" id=""class="unit">
-		    				</select>
+		    			<li class="selectNum lastLi">
+		    				<input type="number"  class="amountInput"/>
+		    				<span class="unit">ml</span>
 		    			</li>		    			
 		    		</ul>
-		    		<div class="submitBtn">
-		    			<button class="reset"id='reset'>清空</button>
-		    			<button class="save"id='saveBtn'>保存并上传</button>
-		    		</div>
+		    		
 		    		
 		    		
 	    		</div>
+
+	    		</div>
+	    		<div class="submitBtn saveBack">
+		    			<button class="reset"id='reset'>清空</button>
+		    			<button class="save"id='saveBtn'>保存并上传</button>
+		    	</div>
 	    	</div>	    		
 	    	<!--底部导航-->
 	    	<nav class="mui-bar mui-bar-tab footer">
@@ -106,91 +121,104 @@
 
 		</div>
 		<script src="../lib/template/template.js"></script>
-		<script type='text/template'id='explainTpl'>
-	    	<option value="">出量说明&nbsp;∨</option>
-	    	{{each list as value i}}
-		    <option value="{{value}}">{{value}}</option>	
-		    {{/each}}
+		<script type='text/template'id='selectPatient'>
+			{{each list as value i}}
+			<div class="singleBox"MRN='{{value.MRN}}'PatientName='{{value.PatientName}}'PatientNumber='{{value.PatientNumber}}'id='hisData'>
+			  <a class="single"><span>{{value.Bed}}</span>&nbsp;<span>{{value.PatientName}}</span></a>
+			</div>
+			{{/each}}
 		</script>
-		<script type='text/template'id='unitTpl'>
-	    	<option value="ml">ml</option>		
-	    	{{each list as value i}}
-		    <option value="{{value}}">{{value}}</option>	
+		<script type='text/template'id='selectItemTpl'>
+			{{each list as value i}}
+		    	<li>{{value}}</li>
 		    {{/each}}
 		</script>
 		<script src="../js/public.js"></script>
 		<script>
-			var MRN=GetRequest(location.search).MRN;
-			var patientName=unescape(GetRequest(location.search).PatientName);
-			var patientNumber=GetRequest(location.search).PatientNumber;
 			document.getElementById('titleId').innerHTML=patientName;
-			var inputs=document.getElementsByTagName('input');
-			for(var i=0;i<inputs.length;i++){
-				inputs[i].setAttribute('placeholder','请输入');
+//			下拉选项
+			var selectDom=document.getElementsByClassName('selectItem');
+			var selectArea=document.getElementById('selectArea');
+			var units=document.getElementsByClassName('unit');
+			var mask = mui.createMask(function(){
+				selectArea.style.display='none';
+				selectArea.classList.remove('hasShow');
+			});
+			function selectInfo(ele,num,funName){
+				if(ele.classList.contains('hasShow')){
+						ele.classList.remove('hasShow');
+						selectArea.style.display='none';
+						mask.close();
+						return;
+					}else {
+						ele.classList.add('hasShow');
+						selectArea.style.display='block';
+						mask.show();
+					}
+					var obj=[{Color:"0"},{Unit:"1"}];
+					mui.ajax({
+						url:url,
+						type:'get',
+						data:{
+							msgBody:JSON.stringify(obj[num]),
+	                				msgHeader:JSON.stringify({
+	                    				ServerName:funName,
+	                    				Format: 'json',
+	                    				CallOperator: '',
+	                    				Certificate:'123456'
+	                    			})
+						},
+						dataType:'json',
+						success:function(data){
+							console.log(data);
+							if(data.Code==0){
+								var items=data.Contents;
+								var html=template('selectItemTpl',{list:items});
+								document.getElementById('itemCon').innerHTML=html;
+							}else {
+								data.Contents=[];
+								data.Contents[0]='';
+								var items=data.Contents;
+								var html=template('selectItemTpl',{list:items});
+								document.getElementById('itemCon').innerHTML=html;
+							}
+							var lis=document.getElementsByClassName('itemCon')[0].getElementsByTagName('li');
+							for(var i=0;i<lis.length;i++){
+								lis[i].addEventListener('tap',function(){
+									if(num==0){
+										ele.lastElementChild.innerHTML=this.innerHTML;
+									}else {
+										ele.innerHTML=this.innerHTML;
+									}				
+									selectArea.style.display='none';
+									mask.close();
+								})
+								
+							}
+						}
+				})
+					
+			}
+			
+			for(var i=0;i<selectDom.length;i++){
+				selectDom[i].addEventListener('tap',function(){
+					selectInfo(this,0,'GetColorValues');
+				});
+			}
+			for(var i=0;i<units.length;i++){
+				units[i].addEventListener('tap',function(){
+					selectInfo(this,1,'GetUnitValues');
+				});
 			}
 		</script>
 		<!--时间控件-->
 		<script>
-			var selectors=document.getElementsByTagName('select');
-			var explainCons=document.getElementsByClassName('explainCon');
 			var units=document.getElementsByClassName('unit');
 			var amountInputs=document.getElementsByClassName('amountInput');
 			var amountNames=document.getElementsByClassName('amountName');
-			function getUnitAndColor(){
-				mui.ajax({
-					url:url,
-					type:'get',
-					data:{
-						msgBody:JSON.stringify({
-		                   			Color:"0"
-                				}),                   
-                				msgHeader:JSON.stringify({
-                    				ServerName:'GetColorValues',
-                    				Format: 'json',
-                    				CallOperator: '',
-                    				Certificate:'123456'
-                    			})
-					},
-					dataType:'json',
-					success:function(data){
-						if(data.Code==0){
-							var html=template('explainTpl',{list:data.Contents});
-							
-							for(var i=0;i<explainCons.length;i++){
-								explainCons[i].innerHTML=html;
-							}
-							mui.ajax({
-								url:url,
-								type:'get',
-								data:{
-									msgBody:JSON.stringify({
-		                   			Unit:"0"
-                				}),                   
-                				msgHeader:JSON.stringify({
-                    				ServerName:'GetUnitValues',
-                    				Format: 'json',
-                    				CallOperator: '',
-                    				Certificate:'123456'
-                    			})
-								},
-								dataType:'json',
-								success:function(data){
-									console.log(data);
-									if(data.Code==0){
-										var html=template('unitTpl',{list:data.Contents});
-										
-										for(var i=0;i<units.length;i++){
-											units[i].innerHTML=html;
-										}
-									}
-								}
-							})
-						}						
-					}
-				})
-			}
-			getUnitAndColor();
-			document.getElementById('currentDate').innerHTML=new Date().Format("yyyy-MM-dd");
+			var selectRights=document.getElementsByClassName('selectRight');
+			var currentDate=document.getElementById('currentDate');
+			currentDate.innerHTML=new Date().Format("yyyy-MM-dd");
 			document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
 			document.getElementsByClassName('listcontainer')[0].classList.remove('OtherData');
 			//时间控件
@@ -262,41 +290,40 @@
 								},
 							dataType:'json',
 							success:function(data){
-								console.log(data);
 								if(data.Code==0){
 									if(parseInt(two.innerHTML.substr(0,2))!=parseInt(data.Contents[0].OperateTime.substring(data.Contents[0].OperateTime.indexOf(" "),data.Contents[0].OperateTime.indexOf(":")))){
 										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
 										for(var i=0;i<amountInputs.length;i++){
 											amountInputs[i].value='';
 										}
-										for(var j=0;j<explainCons.length;j++){
-											explainCons[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择<i></i>';
 										} 
 										for(var j=0;j<units.length;j++){
-											units[j].value='ml';
+											units[j].innerHTML='ml';
 										} 
 										return;
 									}
 									document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
 									for(var i=0;i<data.Contents.length;i++){
 										var outData=data.Contents;
-										console.log(outData);
-										explainCons[i].value=outData[i].OutPut_instruction;
+										console.log(selectRights[i]);
+										selectRights[i].innerHTML=outData[i].OutPut_instruction;
 										amountInputs[i].value=outData[i].OutputNumber;
-										units[i].value=outData[i].OutputUnit;										
+										units[i].innerHTML=outData[i].OutputUnit;										
 									}
 									
 								}else {
 										document.getElementsByClassName('listcontainer')[0].classList.remove('hasSave');
 										var inputs=document.getElementsByClassName('listcontainer')[0].getElementsByTagName('input');
-										for(var i=0;i<inputs.length;i++){
-											inputs[i].value='';
+										for(var i=0;i<amountInputs.length;i++){
+											amountInputs[i].value='';
 										}
-										for(var j=0;j<explainCons.length;j++){
-											explainCons[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择<i></i>';
 										} 
 										for(var j=0;j<units.length;j++){
-											units[j].value='ml';
+											units[j].innerHTML='ml';
 										} 
 								}
 							}
@@ -354,6 +381,9 @@
 						}
 						var thisInnerHtml=this.innerHTML;
 						var tapIndex=parseInt(one.getAttribute('index'));
+						if(tapIndex==9){
+							currentDate.innerHTML=getPreDay(currentDate.innerHTML);
+						}
 							two.innerHTML=timeArr[tapIndex];
 							two.setAttribute('index',tapIndex);
 							three.innerHTML=timeArr[tapIndex+1];
@@ -372,7 +402,7 @@
 							data:{
 								msgBody:JSON.stringify({
 		                   			PatientMRN:MRN,
-		                    		OperateTime:new Date().Format('yyyy-MM-dd')+" "+thisInnerHtml+":00"
+		                    		OperateTime:currentDate.innerHTML+" "+thisInnerHtml+":00"
                 				}),                   
                 				msgHeader:JSON.stringify({
                     				ServerName:'GetOutputByTime',
@@ -382,6 +412,7 @@
 								},
 							dataType:'json',
 							success:function(data){
+								console.log(data);
 								if(data.Code==0){
 //									console.log(parseInt(thisInnerHtml.substr(0,2)));
 //									console.log(parseInt(data.Contents.OperateTime.substring(data.Contents.OperateTime.indexOf(" "),data.Contents.OperateTime.indexOf(":"))));
@@ -391,9 +422,9 @@
 									document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
 									for(var i=0;i<data.Contents.length;i++){
 										var outData=data.Contents;
-										explainCons[i].value=outData[i].OutPut_instruction;
+										selectRights[i].innerHTML=outData[i].OutPut_instruction;
 										amountInputs[i].value=outData[i].OutputNumber;
-										units[i].value=outData[i].OutputUnit;
+										units[i].innerHTML=outData[i].OutputUnit;
 										
 									}
 
@@ -402,11 +433,11 @@
 										for(var i=0;i<amountInputs.length;i++){
 											amountInputs[i].value='';
 										}
-										for(var j=0;j<explainCons.length;j++){
-											explainCons[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择<i></i>';
 										} 
 										for(var j=0;j<units.length;j++){
-											units[j].value='ml';
+											units[j].innerHTML='ml';
 										} 
 								}
 							}
@@ -421,6 +452,9 @@
 						}
 						var thisInnerHtml=this.innerHTML;
 						var tapIndex=parseInt(three.getAttribute('index'));
+						if(tapIndex==10){
+							currentDate.innerHTML=getNextDay();
+						}
 								two.innerHTML=timeArr[tapIndex];
 								two.setAttribute('index',tapIndex);
 								one.innerHTML=timeArr[tapIndex-1];
@@ -439,7 +473,7 @@
 							data:{
 								msgBody:JSON.stringify({
 		                   			PatientMRN:MRN,
-		                    		OperateTime:new Date().Format('yyyy-MM-dd')+" "+thisInnerHtml+":00"
+		                    		OperateTime:currentDate.innerHTML+" "+thisInnerHtml+":00"
                 				}),                   
                 				msgHeader:JSON.stringify({
                     				ServerName:'GetOutputByTime',
@@ -449,6 +483,7 @@
 								},
 							dataType:'json',
 							success:function(data){
+								console.log(data);
 								if(data.Code==0){
 									if(parseInt(two.innerHTML.substr(0,2))!=parseInt(data.Contents[0].OperateTime.substring(data.Contents[0].OperateTime.indexOf(" "),data.Contents[0].OperateTime.indexOf(":")))){
 										document.getElementsByClassName('listcontainer')[0].classList.add('OtherData');
@@ -456,10 +491,9 @@
 									document.getElementsByClassName('listcontainer')[0].classList.add('hasSave');
 									for(var i=0;i<data.Contents.length;i++){
 										var outData=data.Contents;
-										console.log(outData[i].Output_instruction);
-										explainCons[i].value=outData[i].OutPut_instruction;
+										selectRights[i].innerHTML=outData[i].OutPut_instruction;
 										amountInputs[i].value=outData[i].OutputNumber;
-										units[i].value=outData[i].OutputUnit;
+										units[i].innerHTML=outData[i].OutputUnit;
 										
 									}
 								}else {
@@ -467,12 +501,12 @@
 										for(var i=0;i<amountInputs.length;i++){
 											amountInputs[i].value='';
 										}
-										for(var j=0;j<explainCons.length;j++){
-											explainCons[j].value='';
+										for(var j=0;j<selectRights.length;j++){
+											selectRights[j].innerHTML='请选择<i></i>';
 										} 
 										for(var j=0;j<units.length;j++){
-											units[j].value='ml';
-										} 
+											units[j].innerHTML='ml';
+										}
 								}
 							}
 						})
@@ -492,8 +526,8 @@
 								OperateTime:new Date().Format("yyyy-MM-dd hh:mm:ss"),
 								OutputName:amountNames[i].getAttribute('name'),
 								OutputNumber:amountInputs[i].value,
-								OutputUnit:units[i].value,
-								Output_instruction:explainCons[i].value
+								OutputUnit:units[i].innerHTML,
+								Output_instruction:selectRights[i].innerHTML
 							})
 						}
 											
@@ -537,7 +571,6 @@
 
 				}
 			})			
-							
 			
 		</script>
 		<!--底部导航切换-->

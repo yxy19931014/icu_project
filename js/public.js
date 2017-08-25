@@ -3,6 +3,18 @@ var url='http://192.168.6.6:8088/ICUMobileInterface.asmx/CallInterface';
 var inputs=document.getElementsByTagName('input');
 			for(var i=0;i<inputs.length;i++){
 				inputs[i].setAttribute('placeholder','请输入');
+				inputs[i].addEventListener('focus',function(){
+					document.getElementsByClassName('footer')[0].style.position='static';
+					if(document.body.querySelector('.saveBack')){
+						document.body.querySelector('.saveBack').style.position='static';
+					}
+				})
+				inputs[i].addEventListener('blur',function(){
+					document.getElementsByClassName('footer')[0].style.position='fixed';
+					if(document.body.querySelector('.saveBack')){
+						document.body.querySelector('.saveBack').style.position='fixed';
+					}
+				})
 			}
 //获取参数
 function GetRequest(url) {   
@@ -18,6 +30,22 @@ function GetRequest(url) {
 }   
 
 //时间格式化
+function getPreDay(str){
+        var d = new Date(str);
+        d = d - 1000*60*60*24;
+        d = new Date(d);
+        var m=d.getMonth()+1<10?'0'+parseInt(d.getMonth()+1):d.getMonth();
+        var day=d.getDate()<10?'0'+d.getDate():d.getDate();
+        return d.getFullYear()+"-"+m+"-"+day;      
+   }
+function getNextDay(){
+        var d = new Date();
+        d = +d + 1000*60*60*24;
+        d = new Date(d);
+        var m=d.getMonth()+1<10?'0'+parseInt(d.getMonth()+1):d.getMonth();
+        var day=d.getDate()<10?'0'+d.getDate():d.getDate();
+        return d.getFullYear()+"-"+m+"-"+day;      
+   }
 Date.prototype.Format = function (fmt) { //author: meizz 
     var o = {
         "M+": this.getMonth() + 1, //月份 
@@ -35,13 +63,34 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 //获取参数中的值
-			var MRN=GetRequest(location.search).MRN?GetRequest(location.search).MRN:'';
-			var patientName=unescape(GetRequest(location.search).PatientName)?unescape(GetRequest(location.search).PatientName):'';
-			var patientNumber=GetRequest(location.search).PatientNumber?GetRequest(location.search).PatientNumber:'';
-			document.getElementById('titleId').innerHTML=patientName;
-//选择患者
+var MRN=GetRequest(location.search).MRN?GetRequest(location.search).MRN:'';
+var patientName=unescape(GetRequest(location.search).PatientName)?unescape(GetRequest(location.search).PatientName):'';
+var patientNumber=GetRequest(location.search).PatientNumber?GetRequest(location.search).PatientNumber:'';
+//	document.getElementById('titleId').innerHTML=patientName;
+			
+//选择患者 
+
+var popover=document.getElementById('popover');
+var mask = mui.createMask(function(){
+	popover.style.display='none';
+	popover.classList.remove('hasLoaded');
+});
 var DeptCode=GetRequest(location.search).DeptCode?GetRequest(location.search).DeptCode:JSON.parse(localStorage.getItem('loginInfo')).DeptCode;
 mui('.mui-title').on('tap','#downSelect',function(){
+	if(popover.classList.contains('hasLoaded')){
+		mask.close();
+		popover.style.display='none';
+		popover.classList.remove('hasLoaded');
+		var subPage=plus.webview.getWebviewById("bedOperSub");
+		plus.webview.show(subPage);
+		return;
+	}else {
+		mask.show();
+		popover.style.display='block';
+		popover.classList.add('hasLoaded');
+		var subPage=plus.webview.getWebviewById("bedOperSub");
+		plus.webview.hide(subPage);
+	}	
 	mui.ajax({
 		url:url,
 		type:'post',
@@ -59,26 +108,33 @@ mui('.mui-title').on('tap','#downSelect',function(){
 		},
 		dataType:'json',
 		success:function(data){
+			console.log(data);
 			if(data.Code==0){
 				var datas=data.Contents;
 				for(var i=0;i<datas.length;i++){
 					if(datas[i].PatientNumber==patientNumber){
 						document.getElementById('currentBed').innerHTML=datas[i].Bed;
 						document.getElementById('currentName').innerHTML=datas[i].PatientName;
-						datas.splice(i,1);
-						var html=template('selectPatient',{list:datas});
-						document.getElementById('historyData').innerHTML=html;
-					}
+						datas.splice(i,1);					
+					}	
+				}
+				var html=template('selectPatient',{list:datas});
+				document.getElementById('historyData').innerHTML=html;
+				for(var i=0;i<datas.length;i++){
 					document.getElementsByClassName('singleBox')[i].addEventListener('tap',function(){
 						var thisMRN=this.getAttribute('MRN');
 						var thisName=this.getAttribute('PatientName');
 						var thisNumber=this.getAttribute('PatientNumber');
+						var subPage=plus.webview.getWebviewById("bedOperSub");
+						plus.webview.hide(subPage);
 						location.href='observation.html?MRN='+thisMRN+'&PatientName='+ escape(thisName)+'&PatientNumber='+thisNumber;
 					})
-				}
-			
+				}					
 			}
+				
 		}
 	})
 });
 
+		
+//

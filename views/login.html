@@ -6,11 +6,19 @@
     <title>登录</title>
     <script src="../js/mui.min.js"></script>
     <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet/less" href="../less/public.less" />
     <link rel="stylesheet/less" href="../less/login.less" />
     <script src="../lib/less/less.min.js"></script>
 </head>
 <body>
 	<div class="loginBox">
+			<div class="selectArea"id='selectArea'>
+				<h2>请选择</h2>
+				<ul id='itemCon'class="itemCon">
+					<li>043</li>
+				</ul>
+			</div>
+
 		<div class="top">
 			<span class="logo"></span>
 		</div>
@@ -24,18 +32,16 @@
     				<span class="icon-pwd"></span>
     			</div>
     			<div class="mui-input-row">
-    				<select name="floor" id="floorId">
-    					<option value="one">请选择楼层</option>
-    					<option value="one">一层</option>
-    				</select>
     				<span class="icon-floor"></span>
+    				<div class="selectItem">				
+    					请选择楼层
+    				</div>			
     			</div>
     			<div class="mui-input-row">
-    				<select name="illArea" id="illAreaId">
-    					<option value="one">请选择病区</option>
-    					<option value="043">043</option>
-    				</select>
     				<span class="icon-area"></span>
+    				<div class="selectItem"id='illAreaId'>					
+    					请选择病区
+    				</div>		
     			</div>
     			<div class="mui-button-row">
     				<em id='loginTip'></em>
@@ -46,8 +52,84 @@
 			</div>
 		</div>
 	</div>
-	<script src="../js/cookie.js"></script>
-	<script src="../js/public.js"></script>
+	<script src="../js/config.js"></script>
+	<script>
+//		下拉选项
+		var selectDom=document.getElementsByClassName('selectItem');
+			var selectArea=document.getElementById('selectArea');
+			var mask = mui.createMask(function(){
+				selectArea.style.display='none';
+				selectArea.classList.remove('hasShow');
+			});
+			function selectInfo(ele){
+				if(ele.classList.contains('hasShow')){
+						ele.classList.remove('hasShow');
+						selectArea.style.display='none';
+						mask.close();
+						return;
+					}else {
+						ele.classList.add('hasShow');
+						selectArea.style.display='block';
+						mask.show();
+					}
+					var lis=document.getElementsByClassName('itemCon')[0].getElementsByTagName('li');
+							for(var i=0;i<lis.length;i++){
+								lis[i].addEventListener('tap',function(){
+									ele.innerHTML=this.innerHTML;
+									selectArea.style.display='none';
+									mask.close();
+								})
+								
+					}
+//					mui.ajax({
+//						url:url,
+//						type:'get',
+//						data:{
+//							msgBody:JSON.stringify({
+//			                   			Observation:ele.firstElementChild.innerHTML
+//	                				}),                   
+//	                				msgHeader:JSON.stringify({
+//	                    				ServerName:'GetSelectValues',
+//	                    				Format: 'json',
+//	                    				CallOperator: '',
+//	                    				Certificate:'123456'
+//	                    			})
+//						},
+//						dataType:'json',
+//						success:function(data){
+//							console.log(data);
+//							if(data.Code==0){
+//								var items=data.Contents;
+//								var html=template('selectItemTpl',{list:items});
+//								document.getElementById('itemCon').innerHTML=html;
+//							}else {
+//								data.Contents=[];
+//								data.Contents[0]='';
+//								var items=data.Contents;
+//								var html=template('selectItemTpl',{list:items});
+//								document.getElementById('itemCon').innerHTML=html;
+//							}
+//							var lis=document.getElementsByClassName('itemCon')[0].getElementsByTagName('li');
+//							for(var i=0;i<lis.length;i++){
+//								lis[i].addEventListener('tap',function(){
+//									ele.lastElementChild.innerHTML=this.innerHTML;
+//									selectArea.style.display='none';
+//									mask.close();
+//								})
+//								
+//							}
+//						}
+//				})
+					
+			}
+			
+			for(var i=0;i<selectDom.length;i++){
+				selectDom[i].addEventListener('tap',function(){
+					selectInfo(this);
+				});
+			}
+			
+	</script>
 	<script>
 		mui.init();
 		var loginBtn=document.getElementById('loginBtn');
@@ -71,7 +153,7 @@
                 msgBody:JSON.stringify({
                     UserName: userDom.value,
                     Password: pwd.value,
-                    DeptCode: areaDom.value
+                    DeptCode: areaDom.innerHTML
                 }),                   
                 msgHeader:JSON.stringify({
                     ServerName:'ICULogin',
